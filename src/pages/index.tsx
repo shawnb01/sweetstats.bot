@@ -40,7 +40,7 @@ export default function Home() {
             target="_blank"
           />
         </div>
-        <div>{data ? data.greeting : "Loading..."}</div>
+        {/* <div>{data ? data.greeting : "Loading..."}</div> */}
       </div>
     </main>
   );
