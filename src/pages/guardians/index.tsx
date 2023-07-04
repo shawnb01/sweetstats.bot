@@ -28,8 +28,8 @@ export default function Guardians() {
       <h1>Guardians</h1>
       <ul>
         {guardians.map((guardian) => (
-          <Link href={`/guardians/${guardian.id}`}>
-            <li key={guardian.id}>{guardian.name}</li>
+          <Link href={`/guardians/${guardian.id}`} key={guardian.id}>
+            <li>{guardian.name}</li>
           </Link>
         ))}
       </ul>
