@@ -16,10 +16,12 @@ import {
 } from "./ui/command";
 import { File, Laptop, Moon, SunMedium, User, Users } from "lucide-react";
 import { navItems } from "@/config/nav";
+import { useAuth } from "@clerk/nextjs";
 
 export default function CommandMenu({ ...props }: DialogProps) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
+  const { isSignedIn } = useAuth();
   const { setTheme } = useTheme();
   const data = {
     guardians: [
@@ -90,15 +92,19 @@ export default function CommandMenu({ ...props }: DialogProps) {
           <CommandGroup heading="Links">
             {/* Nav bar options listed */}
             {navItems.mainNav.map((link) => {
-              return (
-                <CommandItem
-                  key={link.name}
-                  onSelect={() => runCommand(() => router.push(link.path))}
-                >
-                  <File className="mr-2 h-4 w-4" />
-                  {link.name}
-                </CommandItem>
-              );
+              if (link.signInRequired && !isSignedIn) {
+                return null;
+              } else {
+                return (
+                  <CommandItem
+                    key={link.name}
+                    onSelect={() => runCommand(() => router.push(link.path))}
+                  >
+                    <File className="mr-2 h-4 w-4" />
+                    {link.name}
+                  </CommandItem>
+                );
+              }
             })}
           </CommandGroup>
           {/* Add functionality to search guardians currently in database and upon loading their page update stats */}

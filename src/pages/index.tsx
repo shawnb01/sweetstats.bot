@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Metadata } from "next";
 import { cn } from "@/lib/utils";
-import { api } from "@/utils/api";
+import { useAuth } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
   title: "SweetStats",
@@ -9,8 +9,10 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const { data } = api.example.hello.useQuery({ text: "from tRPC" });
+  const { isSignedIn } = useAuth();
 
+  const dashboardDescription =
+    "Manage your server and view your guardians on the SweetStats dashboard.";
   return (
     <main className="flex min-h-[calc(100vh-8rem)] flex-col items-center justify-center bg-background text-foreground">
       <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
@@ -21,7 +23,11 @@ export default function Home() {
           <QuickLinkCard
             href="/dashboard"
             title="Dashboard →"
-            description="Manage your server and view your guardians on the SweetStats dashboard."
+            description={
+              isSignedIn
+                ? dashboardDescription
+                : dashboardDescription + " (Login required)"
+            }
           />
           <QuickLinkCard
             href="/docs"
@@ -40,7 +46,6 @@ export default function Home() {
             target="_blank"
           />
         </div>
-        {/* <div>{data ? data.greeting : "Loading..."}</div> */}
       </div>
     </main>
   );

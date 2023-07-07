@@ -4,10 +4,12 @@ import { usePathname } from "next/navigation";
 import { siteConfig } from "@/config/site";
 import { navItems } from "@/config/nav";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@clerk/nextjs";
 
 export function MainNav() {
   const pathname = usePathname();
   const siteName = siteConfig.name.split(" ");
+  const { isSignedIn } = useAuth();
 
   return (
     <div className="mr-4 hidden md:flex">
@@ -19,20 +21,24 @@ export function MainNav() {
       </Link>
       <nav className="flex items-center space-x-6 text-sm font-medium">
         {navItems.mainNav.map((item) => {
-          return (
-            <Link
-              href={item.path}
-              key={item.name}
-              className={cn(
-                "transition-colors hover:text-foreground/80",
-                pathname === item.path
-                  ? "text-foreground/"
-                  : "text-foreground/40"
-              )}
-            >
-              {item.name}
-            </Link>
-          );
+          if (item.signInRequired && !isSignedIn) {
+            return null;
+          } else {
+            return (
+              <Link
+                href={item.path}
+                key={item.name}
+                className={cn(
+                  "transition-colors hover:text-foreground/80",
+                  pathname === item.path
+                    ? "text-foreground/"
+                    : "text-foreground/40"
+                )}
+              >
+                {item.name}
+              </Link>
+            );
+          }
         })}
       </nav>
     </div>

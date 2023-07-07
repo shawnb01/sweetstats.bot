@@ -7,8 +7,11 @@ import { Icons } from "./icons";
 import ThemeToggle from "./theme-toggle";
 import { MobileNav } from "./mobile-nav";
 import CommandMenu from "./command-menu";
+import { SignInButton, SignOutButton, useAuth } from "@clerk/nextjs";
 
 export const SiteHeader = () => {
+  const { isSignedIn } = useAuth();
+
   return (
     <header className="supports-backdrop-blur:bg-background/60 sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur">
       <div className="container flex h-14 items-center">
@@ -36,6 +39,7 @@ export const SiteHeader = () => {
               </div>
             </Link>
             <ThemeToggle />
+            {!isSignedIn ? <SignInButton /> : <SignOutButton />}
           </nav>
         </div>
       </div>
