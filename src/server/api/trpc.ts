@@ -40,7 +40,7 @@ interface CreateInnerTRPCContextOptions
  *
  * @see https://create.t3.gg/en/usage/trpc#-serverapitrpcts
  */
-const createInnerTRPCContext = async (opts: CreateInnerTRPCContextOptions) => {
+const createInnerTRPCContext = (opts: CreateInnerTRPCContextOptions) => {
   return {
     prisma,
     auth: opts.auth,
@@ -53,8 +53,8 @@ const createInnerTRPCContext = async (opts: CreateInnerTRPCContextOptions) => {
  *
  * @see https://trpc.io/docs/context
  */
-export const createTRPCContext = async (opts: CreateNextContextOptions) => {
-  return await createInnerTRPCContext({ auth: getAuth(opts.req) });
+export const createTRPCContext = (opts: CreateNextContextOptions) => {
+  return createInnerTRPCContext({ auth: getAuth(opts.req) });
 };
 
 /**
