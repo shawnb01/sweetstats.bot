@@ -15,7 +15,7 @@ export function MobileNav() {
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger>
+      <SheetTrigger asChild>
         <Button
           variant="ghost"
           className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
@@ -30,8 +30,8 @@ export function MobileNav() {
           onOpenChange={setOpen}
         >
           <span className="font-bold">
-            {siteName[0]}
-            <span className="text-blue-600">{siteName[1]}</span>
+            Sweet
+            <span className="text-blue-600">Stats</span>
           </span>
         </MobileLink>
 

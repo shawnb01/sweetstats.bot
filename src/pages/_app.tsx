@@ -10,7 +10,7 @@ const MyApp: AppType = ({ Component, pageProps }: AppProps) => {
     <ThemeProvider attribute="class" defaultTheme="dark">
       <ClerkProvider {...pageProps}>
         <Layout>
-          <Component {...pageProps} suppressHydrationWarning />
+          <Component {...pageProps} />
         </Layout>
       </ClerkProvider>
     </ThemeProvider>
