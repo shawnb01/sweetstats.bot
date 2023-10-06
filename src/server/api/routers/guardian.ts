@@ -2,10 +2,28 @@ import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 
 export const guardianRouter = createTRPCRouter({
-  top100: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.example.findMany();
+  findPlayerByNameAndCode: publicProcedure
+    .input(z.object({ name: z.string(), code: z.string() }))
+    .query(({ input }) => {
+      return {
+        name: input.name,
+        code: input.code,
+      };
+    }),
+
+  getTop10SortedByLight: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.destinyCharacter.findMany({
+      orderBy: {
+        light: "desc",
+      },
+      take: 10,
+    });
   }),
-  getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.example.findMany();
+  getAllSortedByLight: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.destinyCharacter.findMany({
+      orderBy: {
+        light: "desc",
+      },
+    });
   }),
 });

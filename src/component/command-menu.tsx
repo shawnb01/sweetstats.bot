@@ -17,40 +17,14 @@ import {
 import { File, Laptop, Moon, SunMedium, User, Users } from "lucide-react";
 import { navItems } from "@/config/nav";
 import { useAuth } from "@clerk/nextjs";
+import { api } from "@/utils/api";
 
 export default function CommandMenu({ ...props }: DialogProps) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const { isSignedIn } = useAuth();
   const { setTheme } = useTheme();
-  const data = {
-    guardians: [
-      {
-        name: "Guardian 1",
-        id: 1,
-      },
-      {
-        name: "Guardian 2",
-        id: 2,
-      },
-      {
-        name: "Guardian 3",
-        id: 3,
-      },
-      {
-        name: "Guardian 4",
-        id: 4,
-      },
-      {
-        name: "Guardian 5",
-        id: 5,
-      },
-      {
-        name: "Guardian 6",
-        id: 6,
-      },
-    ],
-  };
+  const { data } = api.guardian.getTop10SortedByLight.useQuery();
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -117,12 +91,14 @@ export default function CommandMenu({ ...props }: DialogProps) {
             </CommandItem>
             {/* Get top 10 guardians as a quick link */}
             {data &&
-              data.guardians.map((guardian) => {
+              data.map((guardian) => {
                 return (
                   <CommandItem
-                    key={guardian.id}
+                    key={guardian.membershipId}
                     onSelect={() =>
-                      runCommand(() => router.push(`/guardians/${guardian.id}`))
+                      runCommand(() =>
+                        router.push(`/guardians/${guardian.membershipId}`)
+                      )
                     }
                   >
                     <User className="mr-2 h-4 w-4" />

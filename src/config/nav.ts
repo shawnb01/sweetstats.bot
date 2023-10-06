@@ -16,8 +16,8 @@ export const navItems = {
       signInRequired: false,
     },
     {
-      name: "Leaderboards",
-      path: "/leaderboards",
+      name: "Guardians",
+      path: "/guardians",
       signInRequired: false,
     },
   ],

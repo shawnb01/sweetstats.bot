@@ -19,7 +19,7 @@ export const exampleRouter = createTRPCRouter({
       greeting: `Hello ${ctx.auth.userId}, you are authenticated! 🎉`,
     };
   }),
-  getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.example.findMany();
-  }),
+  // getAll: publicProcedure.query(({ ctx }) => {
+  //   return ctx.prisma.example.findMany();
+  // }),
 });
