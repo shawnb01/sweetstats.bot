@@ -8,7 +8,7 @@ const SignIn = () => {
   const { code } = router.query;
 
   if (session) {
-    router.push("/dashboard");
+    router.push("/dashboard").catch(() => console.log("Failed to push"));
   }
 
   return (
