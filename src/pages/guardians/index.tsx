@@ -25,7 +25,9 @@ export default function Guardians() {
     }
   };
 
-  const searchGuardian = () => {};
+  const searchGuardian = () => {
+    console.log("Search Guardian");
+  };
 
   return (
     <div className="m-auto flex w-full flex-col">

@@ -49,13 +49,12 @@ export const SignInDialog = () => {
           <Label htmlFor="email">Username</Label>
           <div className="mb-2 flex w-full flex-row items-center justify-center gap-2">
             <UserCircle2 className="h-4 w-4" />
-            <Input disabled placeholder="Username" />
+            <Input placeholder="Username" />
           </div>
           <Label htmlFor="password">Password</Label>
           <div className="flex w-full flex-row items-center justify-center gap-2">
             <Key className="h-4 w-4" />
             <Input
-              disabled
               className="outline-none"
               type="password"
               placeholder="Password"
@@ -63,7 +62,12 @@ export const SignInDialog = () => {
           </div>
         </div>
         <DialogFooter>
-          <Button disabled variant="default" onClick={() => {}}>
+          <Button
+            variant="default"
+            onClick={() => {
+              console.log("Button!");
+            }}
+          >
             Sign In
           </Button>
         </DialogFooter>
@@ -80,7 +84,7 @@ const SignInOAuthButtons = () => {
   }
 
   const signInWith = (strategy: OAuthStrategy) => {
-    signIn.authenticateWithRedirect({
+    return signIn.authenticateWithRedirect({
       strategy,
       redirectUrl: `/SSOCallback`,
       redirectUrlComplete: "/",
