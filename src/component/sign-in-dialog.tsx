@@ -84,11 +84,18 @@ const SignInOAuthButtons = () => {
   }
 
   const signInWith = (strategy: OAuthStrategy) => {
-    return signIn.authenticateWithRedirect({
-      strategy,
-      redirectUrl: `/SSOCallback`,
-      redirectUrlComplete: "/",
-    });
+    signIn
+      .authenticateWithRedirect({
+        strategy,
+        redirectUrl: `/SSOCallback`,
+        redirectUrlComplete: "/",
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   return (
